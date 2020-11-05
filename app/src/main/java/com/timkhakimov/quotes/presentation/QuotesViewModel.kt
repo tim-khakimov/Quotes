@@ -5,17 +5,24 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import com.timkhakimov.quotes.data.model.Quote
+import com.timkhakimov.quotes.data.repository.QuotesObserver
+import com.timkhakimov.quotes.data.repository.QuotesRepository
 
-class QuotesViewModel : ViewModel() {
+class QuotesViewModel : ViewModel(), QuotesObserver {
 
     private val quotesLiveData = MutableLiveData<List<Quote>>()
+    private val quotesRepository = QuotesRepository()
 
     fun start() {
-        //todo коннект к сокету
+        quotesRepository.subscribe(this)
     }
 
     private fun finish() {
-        //todo дисконнект от сокета
+        quotesRepository.unsubscribe()
+    }
+
+    override fun onQuotesUpdated(quotes: List<Quote>) {
+        quotesLiveData.value = quotes
     }
 
     fun observeQuotes(
