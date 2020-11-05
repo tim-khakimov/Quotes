@@ -8,7 +8,7 @@ data class Quote(
     val ticker: String?,
 
     @SerializedName("pcp")
-    val pcp: Double?,               //Изменение в процентах относительно цены закрытия предыдущей торговой сессии
+    val pcp: Double = 0.0,               //Изменение в процентах относительно цены закрытия предыдущей торговой сессии
 
     @SerializedName("ltr")
     val ltr: String?,               //Биржа последней сделки
@@ -17,8 +17,8 @@ data class Quote(
     val name: String?,              //Название бумаги
 
     @SerializedName("ltp")
-    val ltp: Double?,               //Цена последней сделки
+    val ltp: Double = 0.0,               //Цена последней сделки
 
     @SerializedName("chg")
-    val chg: Double?                //Изменение цены последней сделки в пунктах относительно цены закрытия предыдущей торговой сессии
+    val chg: Double = 0.0                //Изменение цены последней сделки в пунктах относительно цены закрытия предыдущей торговой сессии
 )
