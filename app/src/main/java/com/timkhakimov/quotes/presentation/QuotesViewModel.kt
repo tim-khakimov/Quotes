@@ -11,7 +11,7 @@ import com.timkhakimov.quotes.data.repository.QuotesRepository
 class QuotesViewModel : ViewModel(), QuotesObserver {
 
     private val quotesLiveData = MutableLiveData<List<Quote>>()
-    private val quotesRepository = QuotesRepository()
+    private lateinit var quotesRepository: QuotesRepository     //todo инициализировать
 
     fun start() {
         quotesRepository.subscribe(this)

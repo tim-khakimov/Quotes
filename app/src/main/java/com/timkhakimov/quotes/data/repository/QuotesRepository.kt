@@ -1,12 +1,31 @@
 package com.timkhakimov.quotes.data.repository
 
-class QuotesRepository {
+import com.timkhakimov.quotes.data.model.QuotesData
+
+class QuotesRepository(
+    private val quotesDataObservable: QuotesDataObservable
+) : QuotesDataObserver {
+
+    private val quotesStorage = QuotesStorage()
+    private var quotesObserver: QuotesObserver? = null
 
     fun subscribe(quotesObserver: QuotesObserver) {
-        //todo подписаться на изменение котировок
+        this.quotesObserver = quotesObserver
+        quotesDataObservable.observeQuotesData(this)
     }
 
     fun unsubscribe() {
-        //todo отписаться от изменения котировок
+        quotesDataObservable.stop()
+    }
+
+    override fun onGetQuotes(quotesData: QuotesData) {
+        quotesData.quotes?.let {
+            quotesStorage.setData(it)
+            notifyObserver()
+        }
+    }
+
+    private fun notifyObserver() {
+        quotesObserver?.onQuotesUpdated(quotesStorage.getData())
     }
 }
