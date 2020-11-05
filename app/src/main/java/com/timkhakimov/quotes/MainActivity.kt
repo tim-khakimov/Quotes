@@ -6,6 +6,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.timkhakimov.quotes.data.model.Quote
+import com.timkhakimov.quotes.data.model.QuoteInfo
 import com.timkhakimov.quotes.presentation.QuotesViewModel
 import com.timkhakimov.quotes.ui.adapter.QuotesAdapter
 import kotlinx.android.synthetic.main.activity_main.*
@@ -46,7 +47,7 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
-    private fun setQuotes(quotes: List<Quote>) {
+    private fun setQuotes(quotes: List<QuoteInfo>) {
         adapter.setQuotes(quotes)
     }
 }

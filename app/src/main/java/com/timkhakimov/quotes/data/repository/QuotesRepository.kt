@@ -20,7 +20,7 @@ class QuotesRepository(
 
     override fun onGetQuotes(quotesData: QuotesData) {
         quotesData.quotes?.let {
-            quotesStorage.setData(it)
+            quotesStorage.setQuotes(it)
             notifyObserver()
         }
     }

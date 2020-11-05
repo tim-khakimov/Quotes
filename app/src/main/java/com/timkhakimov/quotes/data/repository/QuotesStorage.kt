@@ -1,28 +1,30 @@
 package com.timkhakimov.quotes.data.repository
 
 import com.timkhakimov.quotes.data.model.Quote
+import com.timkhakimov.quotes.data.model.QuoteInfo
 
 class QuotesStorage {
 
-    private val data = mutableListOf<Quote>()
+    private val data = mutableListOf<QuoteInfo>()
 
-    fun setData(quotes: List<Quote>) {
+    fun setQuotes(quotes: List<Quote>) {
         for (quote in quotes) {
             addOrReplaceQuote(quote)
         }
     }
 
-    fun getData(): List<Quote> {
+    fun getData(): List<QuoteInfo> {
         return data
     }
 
     private fun addOrReplaceQuote(quote: Quote) {
-        val currentQuote = data.find { it.ticker == quote.ticker }
+        val currentQuote = data.find { it.quote.ticker == quote.ticker }
         if (currentQuote != null) {
+            val previousPcp = currentQuote.quote.pcp
             val index = data.indexOf(currentQuote)
-            data[index] = quote
+            data[index] = QuoteInfo(quote, previousPcp)
         } else {
-            data.add(quote)
+            data.add(QuoteInfo(quote, quote.pcp))
         }
     }
 }

@@ -3,4 +3,5 @@
 
     <string name="ltr_and_name_mask">%s | %s</string>
     <string name="ltp_and_chg_mask">%f (%f)</string>
+    <string name="pcp_mask">%s%%</string>
 </resources>

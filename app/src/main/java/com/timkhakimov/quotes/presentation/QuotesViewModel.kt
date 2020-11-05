@@ -4,14 +4,15 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
-import com.timkhakimov.quotes.data.model.Quote
+import com.timkhakimov.quotes.data.model.QuoteInfo
 import com.timkhakimov.quotes.data.repository.QuotesObserver
 import com.timkhakimov.quotes.data.repository.QuotesRepository
+import com.timkhakimov.quotes.data.socket.SocketWrapper
 
 class QuotesViewModel : ViewModel(), QuotesObserver {
 
-    private val quotesLiveData = MutableLiveData<List<Quote>>()
-    private lateinit var quotesRepository: QuotesRepository     //todo инициализировать
+    private val quotesLiveData = MutableLiveData<List<QuoteInfo>>()
+    private var quotesRepository = QuotesRepository(SocketWrapper())    //todo инициализировать
 
     fun start() {
         quotesRepository.subscribe(this)
@@ -21,13 +22,13 @@ class QuotesViewModel : ViewModel(), QuotesObserver {
         quotesRepository.unsubscribe()
     }
 
-    override fun onQuotesUpdated(quotes: List<Quote>) {
-        quotesLiveData.value = quotes
+    override fun onQuotesUpdated(quotes: List<QuoteInfo>) {
+        quotesLiveData.postValue(quotes)
     }
 
     fun observeQuotes(
         lifecycleOwner: LifecycleOwner,
-        observer: Observer<List<Quote>>
+        observer: Observer<List<QuoteInfo>>
     ) {
         quotesLiveData.observe(lifecycleOwner, observer)
     }
