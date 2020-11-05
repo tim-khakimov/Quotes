@@ -37,7 +37,7 @@ class QuoteItemViewHolder(private val rootView: View) : RecyclerView.ViewHolder(
     private fun setQuote(quote: Quote) {
         setTicker(quote.ticker)
         setLtrAndName(quote.ltr, quote.name)
-        setLtpAndChg(quote.ltp, quote.chg)
+        setLtpAndChg(quote.ltp, quote.chg, quote.minStep)
     }
 
     private fun setTicker(ticker: String?) {
@@ -66,12 +66,15 @@ class QuoteItemViewHolder(private val rootView: View) : RecyclerView.ViewHolder(
         }
     }
 
-    private fun setLtpAndChg(ltr: Double, chg: Double) {
+    private fun setLtpAndChg(ltr: Double, chg: Double, minStep: Double) {
+        //todo округление
+        val roundedLtr = ltr
+        val roundedChg = chg
         rootView.tvLtpAndChg.text = rootView.resources.getString(
             R.string.ltp_and_chg_mask,
-            ltr,
-            chg
-        )       //todo округление
+            roundedLtr.toString(),
+            roundedChg.toString()
+        )
     }
 
     private fun setPcp(pcp: Double, previousPcp: Double) {

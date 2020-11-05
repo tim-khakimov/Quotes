@@ -42,8 +42,6 @@
         android:id="@+id/tvPcp"
         android:layout_width="wrap_content"
         android:layout_height="24dp"
-        android:paddingLeft="2dp"
-        android:paddingRight="2dp"
         android:textSize="@dimen/large_text"
         app:layout_constraintBottom_toBottomOf="@+id/tvTicker"
         app:layout_constraintRight_toRightOf="parent"
